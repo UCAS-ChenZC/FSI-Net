@@ -1,0 +1,6 @@
+# python main_cd.py --project_name 'test1219Res+FADConv_2_batch8_12_19_16_49_(1)'
+python main_cd.py --project_name 'FFSwin0309_DSIFN(0)' --batch_size '8' --data_name 'DSIFN' --gpu_ids '2'
+python main_cd.py --project_name 'FFSwin0309_DSIFN(1)' --batch_size '8' --data_name 'DSIFN' --gpu_ids '2'
+python main_cd.py --project_name 'FFSwin0309_DSIFN(2)' --batch_size '8' --data_name 'DSIFN' --gpu_ids '2'
+python main_cd.py --project_name 'FFSwin0309_DSIFN(3)' --batch_size '8' --data_name 'DSIFN' --gpu_ids '2'
+python main_cd.py --project_name 'FFSwin0309_DSIFN(4)' --batch_size '8' --data_name 'DSIFN' --gpu_ids '2'
