@@ -12,21 +12,26 @@
 ## Requirements
 
 ```
-Python 3.8.0
-pytorch 1.10.1
-torchvision 0.11.2
-einops  0.3.2
+Python 3.9.21
+pytorch 2.1.2
+torchvision 0.16.2
+einops  0.8.0
+mmcv 2.1.0
+mmdet 3.3.0
+mmengine 0.10.1
+mmsegmentation 1.2.2
+opencv-python 4.10.0.84
 ```
 
 - Please see `requirements.txt` for all the other requirements.
 
 ## Setting up conda environment: 
 
-Create a virtual ``conda`` environment named ``ChangeFormer`` with the following command:
+Create a virtual ``conda`` environment named ``py212cu118`` with the following command:
 
 ```bash
-conda create --name ChangeFormer --file requirements.txt
-conda activate ChangeFormer
+conda create --name py212cu118 --file requirements.txt
+conda activate py212cu118
 ```
 
 ## Installation
@@ -34,8 +39,8 @@ conda activate ChangeFormer
 Clone this repo:
 
 ```shell
-git clone https://github.com/wgcban/ChangeFormer.git
-cd ChangeFormer
+git clone https://github.com/UCAS-ChenZC/FSI-Net.git
+cd FSI-Net
 ```
 
 ## Quick Start on LEVIR dataset
@@ -197,12 +202,6 @@ wget https://www.dropbox.com/s/18fb5jo0npu5evm/LEVIR-CD256.zip
 For your reference, I have also attached the inks to original LEVIR-CD and DSIFN-CD here: [`LEVIR-CD`](https://justchenhao.github.io/LEVIR/) and [`DSIFN-CD`](https://github.com/GeoZcx/A-deeply-supervised-image-fusion-network-for-change-detection-in-remote-sensing-images/tree/master/dataset).
 
 ### Other useful notes
-#### ChangeFormer for multi-class change detection
-If you wish to use ChangeFormer for multi-class change detection, you will need to make a few modifications to the existing codebase, which is designed for binary change detection. There are many discussions in the issues section. The required modifications are (https://github.com/wgcban/ChangeFormer/issues/93#issuecomment-1918609871):
-1. `run_ChangeFormer_cd.sh`: n_class=8 and make it a hyperparameter to python main.py
-2. `models/networks.py`: net = ChangeFormerV6(embed_dim=args.embed_dim, output_nc=args.n_class)
-3. `models/basic_model.py`: Comment out: pred_vis = pred * 255, i.e., modifications to visualisation processing
-4. `models/trainer.py`: Modify: ConfuseMatrixMeter(n_class=self.n_class)
 
 ### License
 
