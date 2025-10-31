@@ -84,13 +84,13 @@ You can download the pre-trained model [`Github-LEVIR-Pretrained`](https://githu
 wget https://www.dropbox.com/s/undtrlxiz7bkag5/pretrained_changeformer.pt
 ```
 
-Then, update the path to the pre-trained model by updating the ``path`` argument in the ``run_ChangeFormer_LEVIR.sh``.
-Here:
-https://github.com/wgcban/ChangeFormer/blob/a3eca2b1ec5d0d2628ea2e0b6beae85630ba79d4/scripts/run_ChangeFormer_LEVIR.sh#L28
+#Then, update the path to the pre-trained model by updating the ``path`` argument in the ``run_ChangeFormer_LEVIR.sh``.
+#Here:
+#https://github.com/wgcban/ChangeFormer/blob/a3eca2b1ec5d0d2628ea2e0b6beae85630ba79d4/scripts/run_ChangeFormer_LEVIR.sh#L28
 
-You can find the training script `run_ChangeFormer_LEVIR.sh` in the folder `scripts`. You can run the script file by `sh scripts/run_ChangeFormer_LEVIR.sh` in the command environment.
+#You can find the training script `run_ChangeFormer_LEVIR.sh` in the folder `scripts`. You can run the script file by `sh scripts/run_ChangeFormer_LEVIR.sh` in the command environment.
 
-The detailed script file `run_ChangeFormer_LEVIR.sh` is as follows:
+The detailed script file `run_FSI-Net_LEVIR.sh` is as follows:
 
 ```cmd
 #!/usr/bin/env bash
@@ -105,16 +105,16 @@ data_name=LEVIR
 
 
 img_size=256    
-batch_size=16   
+batch_size=8   
 lr=0.0001         
 max_epochs=200
 embed_dim=256
 
-net_G=ChangeFormerV6        #ChangeFormerV6 is the finalized verion
+net_G=FSI-Former        #FSI-Former is the finalized verion
 
 lr_policy=linear
 optimizer=adamw                 #Choices: sgd (set lr to 0.01), adam, adamw
-loss=ce                         #Choices: ce, fl (Focal Loss), miou
+loss=ohem                         #Choices: ce, fl (Focal Loss), miou
 multi_scale_train=True
 multi_scale_infer=False
 shuffle_AB=False
@@ -146,11 +146,10 @@ The detailed script file `eval_ChangeFormer_LEVIR.sh` is as follows:
 gpus=0
 
 data_name=LEVIR
-net_G=ChangeFormerV6 #This is the best version
+net_G=FSI-Former #This is the best version
 split=test
-vis_root=/media/lidan/ssd2/ChangeFormer/vis
-project_name=CD_ChangeFormerV6_LEVIR_b16_lr0.0001_adamw_train_test_200_linear_ce_multi_train_True_multi_infer_False_shuffle_AB_False_embed_dim_256
-checkpoints_root=/media/lidan/ssd2/ChangeFormer/checkpoints
+project_name=FSI-Former_test
+checkpoints_root=/media/lidan/ssd2/FSI-Former/checkpoints
 checkpoint_name=best_ckpt.pt
 img_size=256
 embed_dim=256 #Make sure to change the embedding dim (best and default = 256)

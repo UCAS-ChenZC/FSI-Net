@@ -9,7 +9,7 @@ from einops import rearrange
 
 import models
 from models.help_funcs import Transformer, TransformerDecoder, TwoLayerConv2d
-from models.ChangeFormer import SwinChangeFormer
+from models.ChangeFormer import FSI_Former
 from models.SiamUnet_diff import SiamUnet_diff
 from models.SiamUnet_conc import SiamUnet_conc
 from models.Unet import Unet
@@ -147,8 +147,8 @@ def define_G(args, init_type='normal', init_gain=0.02, gpu_ids=[]):
     # elif args.net_G == 'ChangeFormerV6':
     #     net = ChangeFormerV6(embed_dim=args.embed_dim) #ChangeFormer with Transformer Encoder and Convolutional Decoder (Fuse)
     
-    elif args.net_G == 'SwinChangeFormer':
-        net = SwinChangeFormer(embed_dim=args.embed_dim)
+    elif args.net_G == 'FSI-Former':
+        net = FSI_Former(embed_dim=args.embed_dim)
 
     # elif args.net_G == 'SwinChangeFormerV2':
     #     net = SwinChangeFormerV2(embed_dim=args.embed_dim)

@@ -68,7 +68,7 @@ if __name__ == '__main__':
     parser.add_argument('--multi_scale_infer', default=False, type=str)
     parser.add_argument('--multi_pred_weights', nargs = '+', type = float, default = [1.0, 1.0, 0.3, 0.3, 2.0])     #多尺度训练时损失函数的加权比例 [0.5, 0.5, 0.5, 0.8, 1.0] [1.0, 1.0, 0.3, 0.3, 2.0]
 
-    parser.add_argument('--net_G', default='SwinChangeFormer', type=str,
+    parser.add_argument('--net_G', default='FSI-Former', type=str,
                         help='base_resnet18 | base_transformer_pos_s4 | ')
     # parser.add_argument('--net_G', default='ChangeFormerV6', type=str,
     #                     help='base_resnet18 | base_transformer_pos_s4 | '

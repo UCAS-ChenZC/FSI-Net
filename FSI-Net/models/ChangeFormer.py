@@ -87,10 +87,10 @@ class DoubleConv(nn.Module):
     def forward(self, input):
         return self.Conv(input)
 
-class SwinChangeFormer(nn.Module):
+class FSI_Former(nn.Module):
 
     def __init__(self, output_nc=2, decoder_softmax=False, embed_dim=256,ratio=0.5):
-        super(SwinChangeFormer, self).__init__()
+        super(FSI_Former, self).__init__()
         #Transformer Encoder
         self.embed_dims = [64,96, 192, 384, 768]
         # self.embed_dims = [32,64, 128, 320, 512]
