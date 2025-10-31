@@ -29,9 +29,6 @@ from mmseg.registry import MODELS
 from mmseg.models.utils import resize
 from mmseg.models.decode_heads.decode_head import BaseDecodeHead
 from mmseg.models.decode_heads.psp_head import PPM
-from models.DAttention import DAttention
-from models.DEF import DifferenceFeatureExtractor
-from models.FAM import FAM_Module
 warnings.filterwarnings('ignore')
 
 from timm.models.layers import trunc_normal_

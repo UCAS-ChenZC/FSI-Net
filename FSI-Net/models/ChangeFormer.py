@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional
 import torch.nn.functional as F
 from functools import partial
 from models.ChangeFormerBaseNetworks import *
@@ -11,28 +10,18 @@ import types
 import math
 from abc import ABCMeta, abstractmethod
 from mmengine.model.weight_init import normal_init
-# from mmengine.model import ConvModule
-# from mmcv.utils import get_logger
 from mmengine.logging import MMLogger
 import logging
 import warnings
-# from mmcv.runner import load_checkpoint
 from mmengine.runner import load_checkpoint as mmengine_load_checkpoint
-# from mmseg.models import SwinTransformer
 from models.FFSwin import SwinTransformer
 from models.channel_mapper import ChannelMapper
-# from models.FADConv import OmniAttention, FrequencySelection,generate_laplacian_pyramid,Wf
-from models.FADConv import FADConv
 import torch.fft
 from functools import partial
 from models.MSDConv_SSFC import MSDConv_SSFC
 import warnings
 from einops import rearrange
-# from models.dat import DAT
-# from models.DEF import DifferenceFeatureExtractor
 from models.Decoder_head import SegFusion,UPerHead
-from models.UFFC import FourierUnit_modified
-from models.FAM import FAM_Module
 warnings.filterwarnings('ignore')
 
 # try:

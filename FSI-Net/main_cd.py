@@ -41,33 +41,29 @@ if __name__ == '__main__':
     # ------------
     parser = ArgumentParser()
     parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
-    # parser.add_argument('--project_name', default='SW1_0219_1024_DeTrans_Dysample_Newdecoder_newfadm——newdiff_newpred(1)', type=str)
-    parser.add_argument('--project_name', default='0612_CDD_no_Channelmapper_[0.5, 0.5, 0.5, 0.8, 1.0](0)', type=str)
-    parser.add_argument('--checkpoint_root', default='checkpoints/20250602', type=str)
+    parser.add_argument('--project_name', default='1031Test', type=str)
+    parser.add_argument('--checkpoint_root', default='checkpoints/20251031', type=str)
     parser.add_argument('--vis_root', default='vis', type=str)
 
     # data
     parser.add_argument('--num_workers', default=2, type=int)
     parser.add_argument('--dataset', default='CDDataset', type=str)
-    parser.add_argument('--data_name', default='CDD', type=str)   #   CDD  LEVIR
+    parser.add_argument('--data_name', default='LEVIR', type=str)   #   CDD  LEVIR
 
     parser.add_argument('--batch_size', default=8, type=int)
-    parser.add_argument('--split', default="trainval", type=str)
-    parser.add_argument('--split_val', default="test", type=str)
-
-    # parser.add_argument('--split', default="train", type=str)
-    # parser.add_argument('--split_val', default="test", type=str)
+    parser.add_argument('--split', default="train", type=str)
+    parser.add_argument('--split_val', default="val", type=str)
 
     parser.add_argument('--img_size', default=256, type=int)
-    parser.add_argument('--shuffle_AB', default=False, type=str)            #shuffle_AB?
+    parser.add_argument('--shuffle_AB', default=False, type=str)
 
     # model
     parser.add_argument('--n_class', default=2, type=int)
     parser.add_argument('--embed_dim', default=256, type=int)
     # parser.add_argument('--pretrain', default='/home/solid/CD/code/open-cd-main/fpn_dat_t_80k.pth', type=str)
-    parser.add_argument('--pretrain', default='pretrain/swin_tiny_patch4_window7_224.pth', type=str)
     # parser.add_argument('--pretrain', default= 'pretrain/dat_pp_tiny_in1k_224.pth', type=str)              #   for UNet
     # parser.add_argument('--pretrain', default=None, type=str)   
+    parser.add_argument('--pretrain', default='/home/solid/CD/code/pretrain/swin_tiny_patch4_window7_224.pth', type=str)
     parser.add_argument('--multi_scale_train', default=True, type=str)
     parser.add_argument('--multi_scale_infer', default=False, type=str)
     parser.add_argument('--multi_pred_weights', nargs = '+', type = float, default = [1.0, 1.0, 0.3, 0.3, 2.0])     #多尺度训练时损失函数的加权比例 [0.5, 0.5, 0.5, 0.8, 1.0] [1.0, 1.0, 0.3, 0.3, 2.0]
