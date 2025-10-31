@@ -30,7 +30,79 @@ from mmengine.runner import load_checkpoint as mmengine_load_checkpoint
 from models.DynamicFilter import DynamicFilter
 import torch.nn.init as init
 import numpy as np
-from models.HAT import FFM,OCAB
+# from models.HAT import FFM,OCAB
+
+class RealFFT2D(nn.Module):
+    def forward(self, x):
+        # 输入形状: (B, C, H, W)
+        x_fft = torch.fft.rfft2(x, norm='ortho')
+        # 拆分为实部和虚部
+        x = torch.cat([x_fft.real, x_fft.imag], dim=1)  # 输出形状: (B, 2C, H, W//2+1)
+        return x
+
+class InvRealFFT2D(nn.Module):
+    def forward(self, x, original_shape):
+        # 输入形状: (B, 2C, H, W_rfft)
+        C = x.size(1) // 2
+        H, W = original_shape
+        
+        # 合并实部和虚部
+        x_complex = torch.complex(x[:, :C, :, :], x[:, C:, :, :])
+        # 逆FFT恢复空间域
+        x = torch.fft.irfft2(x_complex, s=(H, W), norm='ortho')
+        return x
+class FFM(nn.Module):
+    def __init__(self, channels=96):
+        super().__init__()
+        
+        # 左分支（空间域）
+        self.left_path = nn.Sequential(
+            nn.Conv2d(channels, channels, 3, padding=1),
+            nn.LeakyReLU(),
+            nn.Conv2d(channels, channels, 3, padding=1)
+        )
+        
+        # 右分支（频域）
+        self.right_Conv= nn.Sequential(
+            nn.Conv2d(channels, channels, 1),            #应该是1*1卷积
+            nn.LeakyReLU()
+            )
+        self.right_path = nn.Sequential(
+            RealFFT2D(),
+            nn.Conv2d(channels*2, channels*2, 1),        #应该是1*1卷积
+            nn.LeakyReLU())
+        self.inv_fft = InvRealFFT2D()
+        
+        # 合并后的处理
+        self.merge_conv_left = nn.Conv2d(channels, channels, 1)
+        self.merge_conv_right = nn.Conv2d(channels, channels, 1)
+        self.final_conv = nn.Sequential(
+            nn.Conv2d(channels*2, channels, 1)
+        )
+
+    def forward(self, x):
+        # 原始空间尺寸
+        original_shape = x.shape[2:]
+        
+        # 左分支处理
+        left = self.left_path(x)
+        left_output = x + left
+        
+        # 右分支处理
+        right_1 = self.right_Conv(x)
+        right_2 = self.right_path(right_1)
+        right_res = right_1 + self.inv_fft(right_2,original_shape)
+        right_output = self.merge_conv_right(right_res)
+        # right_output = self.inv_fft(right, original_shape)
+        
+        # 分支合并
+        # left = self.merge_conv_left(left_output)
+        
+        
+        # 最终合并和输出
+        out = torch.cat([left_output, right_output], dim=1)
+        return self.final_conv(out)
+    
 class WindowMSA(BaseModule):
     """Window based multi-head self-attention (W-MSA) module with relative
     position bias.

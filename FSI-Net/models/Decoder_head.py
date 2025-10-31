@@ -13,8 +13,6 @@ import logging
 import warnings
 # from mmcv.runner import load_checkpoint
 from mmengine.runner import load_checkpoint as mmengine_load_checkpoint
-from models.CRA import ImprovedCRA
-# from models.FreFusion import FreqFusion,LocalSimGuidedSampler
 from models.newFreqFusion import FreqFusion
 import torch.fft
 import warnings
