@@ -6,7 +6,8 @@
 ![image-20210228153142126](./FSI-Net/images/1027FSI-Net_V1.png)
 
 ## Quantitative & Qualitative Results on LEVIR-CD and DSIFN-CD
-![image-20210228153142126](./images/IGARS_ChangeFormer-LEVIR_DSFIN_both.png)
+![image-20210228153142126](./FSI-Net/images/LEVIR-CD&DSIFN-CD.png)
+![image-20210228153142126](./FSI-Net/images/WHU-CD&CDD.png)
 
 # Usage
 ## Requirements
